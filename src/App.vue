@@ -99,12 +99,15 @@ const getLocation = async (current: boolean = true) =>{
     if(current) {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(async ({coords}) => {
-          lat.value = coords.latitude
-          lon.value = coords.longitude
-          const {data} = await axios('data/2.5/weather/',
-              {params: {units: 'metric', lat: lat.value, lon: lon.value}})
-          weatherList.value.push(getStructurData(data))
-          setToStorage()
+          try {
+            lat.value = coords.latitude
+            lon.value = coords.longitude
+            const {data} = await axios('data/2.5/weather/',
+                {params: {units: 'metric', lat: lat.value, lon: lon.value}})
+            weatherList.value.push(getStructurData(data))
+            setToStorage()
+          }catch (e){ }
+
         })
       }
     }else {
@@ -141,17 +144,21 @@ const getStructurData = (data: any) =>{
 }
 
 const addCity = async () =>{
-  if(cityName.value.length) {
-    const {data} = await axios('geo/1.0/direct?/',
-        {params: { q: cityName.value}})
-    if(data.length) {
-      lat.value = data[0].lat
-      lon.value = data[0].lon
-      await getLocation(false)
-    } else {
-      message.warn("City Name not found!")
+  try {
+    if (cityName.value.length) {
+      const {data} = await axios('geo/1.0/direct?/',
+          {params: {q: cityName.value}})
+      if (data.length) {
+        lat.value = data[0].lat
+        lon.value = data[0].lon
+        await getLocation(false)
+      } else {
+        message.warn("City Name not found!")
+      }
+      cityName.value = ""
     }
-    cityName.value = ""
+  } catch (e){
+    message.warn("City Name not found!")
   }
 }
 
