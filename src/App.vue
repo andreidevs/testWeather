@@ -35,7 +35,7 @@
           <div :id="element.id" class="cursor-pointer city-element mx-2 my-2">
             <menu-outlined style="color: #1890ff;" />
             <span class="main-color">  {{element.name}}</span>
-            <a-button type="text">
+            <a-button @click="removeItem(element.id)" type="text">
               <template #icon><delete-outlined style="color: #ff4d4f" /></template>
             </a-button>
           </div>
