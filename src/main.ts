@@ -1,4 +1,4 @@
-import { createApp, } from 'vue'
+import {createApp, defineCustomElement,} from 'vue'
 import './style.css'
 import App from './App.vue'
 import 'ant-design-vue/dist/antd.css';
@@ -113,5 +113,6 @@ app.config.globalProperties.$error = Modal.error
 app.config.globalProperties.$confirm = Modal.confirm
 
 
-
 app.mount('#app')
+
+customElements.define('weather-widget', defineCustomElement(App))
