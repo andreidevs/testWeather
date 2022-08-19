@@ -72,8 +72,7 @@ onMounted(async ()=>{
 
 const endDrag = (event: any) =>{
   const element: Weather = weatherList.value.find(el=> parseInt(el.id) === parseInt(event.item.id))
-  weatherList.value.splice(event.oldIndex, 1);
-  weatherList.value.splice(event.newIndex, 0, element);
+  weatherList.value.splice(event.newIndex, 1, element);
   setToStorage()
 }
 
