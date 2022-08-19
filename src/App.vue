@@ -1,5 +1,5 @@
 <template>
-  <div  class="m-10 main-container">
+  <div  class="main-container">
     <div class="flex justify-between items-center">
       <span class="font-medium ml-4" style="color:#1890ff; ">
         {{  showSettings ? 'Settings' :  'Weather Widget V1' }}</span>
